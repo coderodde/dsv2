@@ -9,6 +9,25 @@
 #include <stdlib.h>
 #include <string.h>
 
+static const char* const HELP_MESSAGE = 
+"ds [-l | -L | -s | -S | -d | -h | --help\n"
+"    -a TAG DIR | --add-tag TAG DIR |\n"
+"    -r TAGS... | --remove-tags TAGS...]\n"
+"where:\n"
+"    -l   list all tags,\n"
+"    -L   list all tags and directories,\n"
+"    -s   list all tags in order,\n"
+"    -S   list all tags and directories sorted by tags,\n"
+"    -d   list all directories and tags sorted by directories,\n"
+"    -h   print this help message,\n"
+"    --help   same as above\n"
+"    -a        TAG DIR   Tag the directory DIR with tag TAG,\n"
+"    --add-tag TAG DIR   same as above,\n"
+"    -r TAGS...             Remove all tag entries mentioned in TAGS,\n"
+"    --remove-tags TAGS...  same as above,\n"
+"If no command line arguments given,\n"
+"switches to the previous directory.\n";
+
 int main(int argc, char* argv[]) {
     if (empty_command_line() != EXIT_SUCCESS) {
         return EXIT_SUCCESS;
@@ -17,6 +36,11 @@ int main(int argc, char* argv[]) {
     if (argc == 1) {
         return command_switch_to_previous();
     } else if (argc == 2) {
+    	if ((strcmp(argv[1], "-h") == 0) || (strcmp(argv[1], "--help") == 0))	 {
+    		puts(HELP_MESSAGE);
+    		return EXIT_SUCCESS;
+    	}
+    
         char* arg = argv[1];
 
         if (strcmp(arg, "-l") == 0) {
