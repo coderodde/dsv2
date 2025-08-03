@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -std=c11 -O3 -o ds_engine
 
 INSTALL_DIR = ${HOME}/.dsv2
 SCRIPT = ds_script
-ALIAS_LINE = alias ds='source ~/.dsv2/$(SCRIPT)'
+ALIAS_LINE = alias ds='source ${INSTALL_DIR}/$(SCRIPT)'
 
 all: $(TARGET)
 

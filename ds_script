@@ -1,4 +1,4 @@
 ~/.dsv2/ds_engine $@
-if [ -f "~/.dsv2/ds_command" ]; then
-    source ~/.dsv2/ds_command
+if [ -f ~/.dsv2/ds_command ]; then
+    . ~/.dsv2/ds_command
 fi
