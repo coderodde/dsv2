@@ -5,33 +5,13 @@
 #include "path_utils.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-#ifdef _WIN32
-const char* const TAGS_FILE_NAME    = "\\.dsv2\\tags";
-const char* const COMMAND_FILE_NAME = "\\.dsv2\\ds_command";
-#include <windows.h>
-#else
 const char* const TAGS_FILE_NAME    = "/.dsv2/tags";
 const char* const COMMAND_FILE_NAME = "/.dsv2/ds_command";
-#include <unistd.h>
-#endif
 
 char* get_home_directory() {
-#ifdef _WIN32
-    const char* home = getenv("USERPROFILE");
-    if (!home) {
-        const char* drive = getenv("HOMEDRIVE");
-        const char* path = getenv("HOMEPATH");
-        if (drive && path) {
-            static char buffer[512];
-            snprintf(buffer, sizeof(buffer), "%s%s", drive, path);
-            return buffer;
-        }
-    }
-#else
-    char* home = getenv("HOME");
-#endif
-    return home;
+    return getenv("HOME");
 }
 
 char* get_tag_file_path() {
