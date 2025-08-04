@@ -26,7 +26,7 @@ char* get_tag_file_path() {
 
     snprintf(tag_file_path,
              MAX_PATH_LENGTH,
-             "%s%s",
+             "%s%s",	
              home,
              TAGS_FILE_NAME);
 

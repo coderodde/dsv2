@@ -167,6 +167,9 @@ tag_file_entry_list_t* read_tag_file_entry_list(char* file_path) {
         if (feof(f)) {
             fclose(f);
             free(e);
+            free_tag_file_entry_list(tag_file_entry_list,
+            						 1);
+
             return tag_file_entry_list;
         }
 
@@ -184,8 +187,15 @@ tag_file_entry_list_t* read_tag_file_entry_list(char* file_path) {
         } else {
             fclose(f);
             free(e);
+            free_tag_file_entry_list(tag_file_entry_list,
+                                     1);
+
             return tag_file_entry_list;
         }
+        
+        fclose(f);
+        free(e);	
+        return tag_file_entry_list;
     }
 }
 

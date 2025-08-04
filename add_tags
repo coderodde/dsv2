@@ -1,0 +1,15 @@
+ensure_line_in_file() {
+    local line="$1"
+    local file="$2"
+
+    if ! grep -Fxq "$line" "$file"; then
+        echo "$line" >> "$file"
+    fi
+}
+
+echo Creating the default tags...
+touch ~/.dsv2/tags
+ensure_line_in_file "root /" ~/.dsv2/tags
+ensure_line_in_file "home ~" ~/.dsv2/tags
+ensure_line_in_file "docs ~/Documents" ~/.dsv2/tags
+ensure_line_in_file "down ~/Downloads" ~/.dsv2/tags

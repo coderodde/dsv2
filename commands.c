@@ -154,6 +154,11 @@ static tag_file_entry_t* get_previous_tag_file_entry(tag_file_entry_list_t* list
 
 int command_switch_to_previous() {
     tag_file_entry_list_t* list = read_tag_file_entry_list(get_tag_file_path());
+    
+    if (!list) {
+    	return EXIT_FAILURE;
+    }
+    
     tag_file_entry_t* prev_entry = get_previous_tag_file_entry(list);
     char* cwd = get_current_working_directory();
 
@@ -174,15 +179,18 @@ int command_switch_to_previous() {
         write_command_file(command);
         write_tag_file_entry_list(list);
         free_tag_file_entry_list(list, 1);
+        free(tag);
         return EXIT_SUCCESS;
     }
 
     char* prev_dir = prev_entry->dir_path;
     char* command = malloc(COMMAND_LENGTH);
-    sprintf(command, "cd %s", prev_dir);
+    sprintf(command, "cd %s\n", prev_dir);
     prev_entry->dir_path = cwd;
     write_command_file(command);
     write_tag_file_entry_list(list);
+    free_tag_file_entry_list(list, 1);
+    free(command);	
     return EXIT_SUCCESS;
 }
 
